@@ -1,0 +1,19 @@
+{% load static i18n %}
+
+<!DOCTYPE html>
+<html lang="ca">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/x-icon" href="{% static 'img/favicon.ico' %}">
+    <title>{% translate "Portal OSAT" %}</title>
+
+    <script type="text/javascript" src="{% static 'dist/js/bundle.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'dist/css/styles.css' %}" />
+  </head>
+  <body>
+    {% if user.is_authenticated %}{% include "_header.html" %}{% endif %}
+
+    <main class="container py-5">{% block content %}{% endblock %}</main>
+  </body>
+</html>

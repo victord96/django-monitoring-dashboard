@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+
+<div class="d-flex flex-row justify-content-between mb-3">
+  {% if perms.reports.add_report %}
+    <a class="btn btn-primary" href="{% url 'admin:reports_report_add' %}">{% translate "Afegir Informe" %}</a>
+  {% endif %}
+
+  <form method="get" action="{{ request.get_full_path }}">
+    <div class="input-group border rounded">
+      <input type="search" class="form-control border-0" name="q" placeholder="{% translate "Cercar" %}" value="{{ request.GET.q }}">
+      <button type="submit" class="btn"><i class="bi bi-search"></i></button>
+    </div>
+  </form>
+</div>
+
+<div class="table-responsive">
+  <table class="table">
+    <thead class="table-light">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">{% translate "Nom" %}</th>
+        <th scope="col">{% translate "Data" %}</th>
+        <th scope="col">{% translate "Accions" %}</th>
+      </tr>
+    </thead>
+    <tbody class="table-group-divider">
+      {% for report in report_list %}
+        <tr class="align-middle">
+          <th scope="row">{{ report.id }}</th>
+          <td>
+            {% include "reports/_content_type_icon.html" with content_type=report.file_content_type %}
+            {{ report.name }}
+            &nbsp;
+            <small class="text-secondary">({{ report.file_size|filesizeformat }})</small>
+          </td>
+          <td>{% include "_time.html" with datetime=report.date %}</td>
+          <td>
+            <a class="text-info" target="_blank" type="{{ report.file_content_type }}" href="{{ report.file.url }}">{% translate "Veure" %}</a>
+
+            {% if report.owner == user or user.is_superuser %}
+              {% if perms.reports.change_report %}
+                <a class="text-success" href="{% url 'admin:reports_report_change' object_id=report.id %}">{% translate "Editar" %}</a>
+              {% endif %}
+              {% if perms.reports.delete_report %}
+                <a class="text-danger" href="{% url 'admin:reports_report_delete' object_id=report.id %}">{% translate "Eliminar" %}</a>
+              {% endif %}
+            {% endif %}
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  {% include "_pagination.html" with page_obj=page_obj %}
+</div>
+
+{% endblock %}

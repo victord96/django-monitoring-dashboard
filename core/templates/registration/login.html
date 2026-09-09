@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block content %}
+
+<div class="d-flex flex-column justify-content-center align-items-center h-100">
+  <img class="img-fluid my-5" width="200" src="{% static 'img/banner.png' %}">
+
+  {% if form.errors or next %}
+    <div class="alert alert-danger" role="alert">
+      {% if form.errors %}
+        {% translate "Correu electrònic i/o contrasenya incorrectes. Si us plau, torna a intentar-ho" %}
+      {% elif user.is_authenticated %}
+        {% translate "No tens permís per a accedir a aquesta pàgina. Si creus que és un error, contacta amb el teu administrador" %}
+      {% else %}
+        {% translate "Si us plau, inicia sessió per accedir" %}
+      {% endif %}
+    </div>
+  {% endif %}
+
+  <form class="col-4" method="post" action="{% url 'login' %}">
+    {% csrf_token %}
+    <input type="hidden" name="next" value="{{ next }}">
+
+    <div class="form-floating mb-1">
+      <input id="id_username" class="form-control bg-white" type="email" name="username" autofocus="" autocapitalize="none" autocomplete="email" maxlength="254" placeholder="username@domain.com" required>
+      <label for="id_username">{% translate "Correu electrònic" %}</label>
+    </div>
+
+    <div class="form-floating mb-3">
+      <input id="id_password" class="form-control bg-white" type="password" name="password" autocomplete="current-password" placeholder="********" required>
+      <label for="id_password">{% translate "Contrasenya" %}</label>
+    </div>
+
+    <div class="d-grid">
+      <button type="submit" class="btn btn-primary">{% translate "Iniciar Sessió" %}</button>
+    </div>
+  </form>
+</div>
+
+{% endblock %}

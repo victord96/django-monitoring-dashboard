@@ -1,0 +1,35 @@
+version: "3.9"
+
+x-django: &django
+  build: .
+  volumes:
+    - ".:/app"
+    - "/app/node_modules"
+  depends_on:
+    - database
+  environment:
+    - DJANGO_SETTINGS_MODULE=dashboard.settings.development
+
+services:
+  app:
+    <<: *django
+    command: python manage.py runserver 0.0.0.0:8000
+    ports:
+      - "8000:8000"
+  assets:
+    <<: *django
+    command: npm run dev
+    tty: true
+  database:
+    image: mariadb:10.11.2
+    restart: always
+    volumes:
+      - "mariadb:/var/lib/mysql"
+    ports:
+      - "3306:3306"
+    environment:
+      - MARIADB_ROOT_PASSWORD=dashboard
+      - MARIADB_DATABASE=dashboard
+
+volumes:
+  mariadb:

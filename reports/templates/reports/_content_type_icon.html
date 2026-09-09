@@ -1,0 +1,9 @@
+{% if content_type == "application/pdf" or content_type == "application/x-bzpdf" or content_type == "application/x-gzpdf" %}
+  <i class="bi bi-file-pdf" style="color: #fb0f01" alt="PDF" title="PDF" aria-hidden="true"></i>
+{% elif content_type == "application/msword" or content_type == "application/vnd.openxmlformats-officedocument.wordprocessingml.document" %}
+  <i class="bi bi-file-word" style="color: #3c7cc3" alt="Word" title="Word" aria-hidden="true"></i>
+{% elif content_type == "application/vnd.ms-powerpoint" or content_type == "application/vnd.openxmlformats-officedocument.presentationml.presentation" %}
+  <i class="bi bi-file-ppt" style="color: #c43e1c" alt="Power Point" title="Power Point" aria-hidden="true"></i>
+{% else %}
+  <i class="bi bi-file-text" style="color: #d3d3d3" alt="Document" title="Document" aria-hidden="true"></i>
+{% endif %}

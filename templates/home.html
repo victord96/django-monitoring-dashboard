@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+
+<div class="row row-cols-1 row-cols-lg-2 g-5 py-5">
+  <div class="col d-flex align-items-start">
+    <div class="feature-icon me-3">
+      <i class="bi bi-speedometer"></i>
+    </div>
+    <div>
+      <h3 class="fw-bold fs-3">{% translate "Quadre de comandament" %}</h3>
+      <p>{% translate "Accés als diferents quadres de comandament sobre l'estat del servei i de l'equipament d'OSAT" %}</p>
+      <a href="{% url "scorecard:scorecard" %}" role="button">
+        {% translate "Accedir" %}<i class="bi bi-chevron-right"></i>
+      </a>
+    </div>
+  </div>
+
+  <div class="col d-flex align-items-start">
+    <div class="feature-icon me-3">
+      <i class="bi bi-bar-chart"></i>
+    </div>
+    <div>
+      <h3 class="fw-bold fs-3">{% translate "Informes" %}</h3>
+      <p>{% translate "Accés als informes mensuals sobre el servei d'OSAT. Els informes es poden tant visualitzar com descarregar" %}</p>
+      <a href="{% url "reports:index" %}" role="button">
+        {% translate "Accedir" %}<i class="bi bi-chevron-right"></i>
+      </a>
+    </div>
+  </div>
+
+  <div class="col d-flex align-items-start">
+    <div class="feature-icon me-3">
+      <i class="bi bi-pc-display"></i>
+    </div>
+    <div>
+      <h3 class="fw-bold fs-3">{% translate "Autoconsum" %}</h3>
+      <p>{% translate "Accés a provisions autoconsumibles del servei OSAT" %}</p>
+      <a href="#" role="button" class="disabled">
+        {% translate "Accedir" %}<i class="bi bi-chevron-right"></i>
+      </a>
+    </div>
+  </div>
+
+  <div class="col d-flex align-items-start">
+    <div class="feature-icon me-3">
+      <i class="bi bi-boxes"></i>
+    </div>
+    <div>
+      <h3 class="fw-bold fs-3">{% translate "CMDB OSAT" %}</h3>
+      <p>{% translate "Accés a la base de dades sobre l'equipament d'OSAT" %}</p>
+      <a href="#" role="button" class="disabled">
+        {% translate "Accedir" %}<i class="bi bi-chevron-right"></i>
+      </a>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

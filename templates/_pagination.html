@@ -1,0 +1,25 @@
+{% if page_obj.has_other_pages %}
+
+<nav>
+  <ul class="pagination justify-content-end">
+    {% if page_obj.has_previous %}
+      <li class="page-item">
+        <a class="page-link" data-controller="pagination-link" data-pagination-link-page-value="{{ page_obj.previous_page_number }}">&laquo;</a>
+      </li>
+    {% endif %}
+
+    {% for page_number in page_obj.paginator.page_range %}
+      <li class="page-item {% if page_number == page_obj.number %}active{% endif %}">
+        <a class="page-link" data-controller="pagination-link" data-pagination-link-page-value="{{ page_number }}">{{ page_number }}</a>
+      </li>
+    {% endfor %}
+
+    {% if page_obj.has_next %}
+      <li class="page-item">
+        <a class="page-link" data-controller="pagination-link" data-pagination-link-page-value="{{ page_obj.next_page_number }}">&raquo;</a>
+      </li>
+    {% endif %}
+  </ul>
+</nav>
+
+{% endif %}

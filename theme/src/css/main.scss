@@ -1,0 +1,47 @@
+@import "variables";
+
+@import "bootstrap/scss/bootstrap";
+@import "bootstrap-icons/font/bootstrap-icons";
+
+html,
+body {
+  height: 100%;
+}
+
+.fit {
+  @extend .w-100, .h-100;
+}
+
+i.bi {
+  width: 1em;
+  height: 1em;
+  font-size: $font-size-base;
+}
+
+$bootstrap-icons-size-map: (
+  "xs": 0.75,
+  "sm": 1,
+  "md": 1.5,
+  "lg": 1.75,
+  "xl": 2
+);
+@each $size, $factor in $bootstrap-icons-size-map {
+  i.bi.bi-#{$size} {
+    font-size: $font-size-base * $factor;
+  }
+}
+
+.feature-icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  line-height: 0;
+
+  @extend .d-inline-flex, .align-items-center, .justify-content-center;
+  @extend .bg-primary, .text-white, .rounded, .p-3;
+}
+
+a.disabled {
+  color: $btn-link-disabled-color;
+  opacity: $btn-disabled-opacity;
+  pointer-events: none;
+}

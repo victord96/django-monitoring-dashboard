@@ -1,0 +1,40 @@
+{
+	"name": "IMI Dashboard",
+	"dockerComposeFile": [
+		"../docker-compose.yml",
+		"docker-compose.yml"
+	],
+	"service": "app",
+	"workspaceFolder": "/app",
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"ms-azuretools.vscode-docker",
+				"waderyan.gitblame",
+				"mhutchie.git-graph",
+				"shardulm94.trailing-spaces",
+				"ms-python.python",
+				"esbenp.prettier-vscode",
+				"batisteo.vscode-django"
+			],
+			"settings": {
+				"editor.formatOnSave": true,
+				"html.format.enable": false,
+				"prettier.printWidth": 150,
+				"prettier.trailingComma": "none",
+				"prettier.useEditorConfig": false,
+				"python.formatting.provider": "black",
+				"python.formatting.blackPath": "/usr/local/bin/black",
+				"[html]": {
+					"editor.defaultFormatter": null
+				},
+				"[javascript]": {
+					"editor.defaultFormatter": "esbenp.prettier-vscode"
+				},
+				"[scss]": {
+					"editor.defaultFormatter": "esbenp.prettier-vscode"
+				}
+			}
+		}
+	}
+}

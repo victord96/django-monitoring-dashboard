@@ -1,0 +1,31 @@
+{
+  "name": "dashboard",
+  "private": true,
+  "scripts": {
+    "dev:js": "esbuild --bundle --sourcemap --watch --outfile=theme/static/dist/js/bundle.js theme/src/js/index.js",
+    "dev:css": "sass --load-path=node_modules --watch theme/src/css/main.scss:theme/static/dist/css/styles.css",
+    "dev": "concurrently --kill-others npm:dev:*",
+    "build:js": "esbuild --bundle --minify --outfile=theme/static/dist/js/bundle.js theme/src/js/index.js",
+    "build:css": "sass --load-path=node_modules --style=compressed --no-source-map theme/src/css/main.scss:theme/static/dist/css/styles.css",
+    "build": "concurrently npm:build:*"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.0",
+    "esbuild": "^0.17.11",
+    "prettier": "^2.8.4",
+    "sass": "^1.58.3"
+  },
+  "dependencies": {
+    "@hotwired/stimulus": "^3.2.1",
+    "@popperjs/core": "^2.11.6",
+    "bootstrap": "^5.2.3",
+    "bootstrap-icons": "^1.10.3",
+    "chart.js": "^3.5.1",
+    "chartjs-plugin-crosshair": "^1.2.0",
+    "chroma-js": "^2.4.2",
+    "html2canvas": "^1.4.1",
+    "html2pdf.js": "^0.10.1",
+    "jspdf": "^2.5.1",
+    "local-time": "^2.1.0"
+  }
+}

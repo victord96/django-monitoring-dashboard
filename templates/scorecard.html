@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% load static %}
+
+<div class="container mt-3">
+    <!-- Title -->
+    <div class="row">
+        <div class="col-12">
+            <h1 class="text-left mb-4">Good Morning</h1>
+        </div>
+    </div>
+
+    <!-- Row for top section with image, export buttons, and date filter form -->
+    <div class="row mb-3 align-items-end">
+        <!-- Column for image and export buttons -->
+        <div class="col-md-8">
+            <img src="{% static 'scorecard/images/mapa_red.png' %}" alt="Mapa de Red" class="img-fluid mb-2">
+            <div>
+                <a href="{% url 'scorecard:scorecard' %}?export=csv" class="btn btn-info mr-2">Exportar com a CSV</a>
+                <button id="exportarAPdf" class="btn btn-secondary">Exportar a PDF</button>
+            </div>
+        </div>
+
+        <!-- Column for the date filter form -->
+        <div class="col-md-4">
+            <form method="GET" action="{% url 'scorecard:scorecard' %}" id="dateFilterForm" class="form">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="form-group mr-2">
+                            <label for="start_time" class="mr-2">Des de:</label>
+                            <input type="datetime-local" id="start_time" name="start_time" class="form-control">
+                        </div>
+                        <div class="form-group mr-2">
+                            <label for="end_time" class="mr-2">fins:</label>
+                            <input type="datetime-local" id="end_time" name="end_time" class="form-control">
+                        </div>
+                    </div>
+                <div class="row">
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary mt-2" style="float: right;">Aplicar filtre</button>
+                    </div>
+                </div>
+                {% csrf_token %}
+            </form>
+        </div>
+    </div>
+
+    <!-- Row for all charts -->
+    <div class="row mt-5">
+        <!-- Column for TESA Chart -->
+        <h1>Internet</h1>
+        <div class="col-md-4 mb-4">
+            <div class="card bg-white shadow p-3">
+                <center><h2 class="card-title">TESA</h2></center>
+                <canvas id="tesaChart"></canvas>
+            </div>
+        </div>
+        <!-- Column for CATNIX Chart -->
+        <div class="col-md-4 mb-4">
+            <div class="card bg-white shadow p-3">
+                <center><h2 class="card-title">CATNIX</h2></center>
+                <canvas id="catnixChart"></canvas>
+            </div>
+        </div>
+        <!-- Column for PROXIES Chart -->
+        <div class="col-md-4 mb-4">
+            <div class="card bg-white shadow p-3">
+                <center><h2 class="card-title">PROXIES</h2></center>
+                <canvas id="proxyChart"></canvas>
+            </div>
+        </div>
+        <br><h1>Accesos Externs</h1>
+        <!-- Column for GESTIONPULSE Chart -->
+        <div class="col-md-4 mb-4">
+            <div class="card bg-white shadow p-3">
+                <center><h2 class="card-title">GESTIONPULSE</h2></center>
+                <canvas id="gestionPulse"></canvas>
+            </div>
+        </div>
+        <!-- Column for GLOBALPROTECT Chart -->
+        <div class="col-md-4 mb-4">
+            <div class="card bg-white shadow p-3">
+                <center><h2 class="card-title">GLOBALPROTECT</h2></center>
+                <canvas id="globalProtect"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Script for creating the charts -->
+<script>
+    createChart('tesaChart', {{ tesa_data|safe }});
+    createChart('catnixChart', {{ catnix_data|safe }});
+    createChart('proxyChart', {{ proxy_data|safe }});
+    createChart('gestionPulse', {{ gestion_pulse|safe }});
+    createChart('globalProtect', {{ global_protect|safe }});
+
+    document.getElementById("exportarAPdf").addEventListener("click", function () {
+        exportChartToPdf('tesaChart');
+        exportChartToPdf('catnixChart');
+        exportChartToPdf('proxyChart');
+        exportChartToPdf('gestionPulse');
+        exportChartToPdf('globalProtect');
+    });
+
+    document.getElementById('dateFilterForm').addEventListener('submit', function(event) {
+        var startTime = document.getElementById('start_time').value;
+        var endTime = document.getElementById('end_time').value;
+    });
+</script>
+
+{% endblock %}
